@@ -52,3 +52,8 @@ export const determineCellStatus = (
 
   return statuses;
 };
+
+export const validLetterCode = (letter: string) => {
+  const letterCode = letter.charCodeAt(0);
+  return letterCode >= 65 && letterCode <= 90;
+};

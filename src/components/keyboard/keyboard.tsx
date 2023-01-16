@@ -1,5 +1,8 @@
-import { WORD_LENGTH } from "constants/data";
+import { keyboardKeys, WORD_LENGTH } from "constants/data";
+import { XCircleIcon } from "@heroicons/react/20/solid";
 import React, { useEffect, useCallback } from "react";
+import { validLetterCode } from "helper";
+import Key from "./key";
 
 interface Props {
   onEnter: () => void;
@@ -9,20 +12,32 @@ interface Props {
 }
 
 const Keyboard = ({ currentWordLength, onEnter, onChar, onDelete }: Props) => {
-  const onClick = () => {};
+  const { firstRow, secondRow, thirdRow } = keyboardKeys;
+
+  const onClick = (letter: string) => {
+    if (letter === "ENTER" && currentWordLength === WORD_LENGTH) {
+      onEnter();
+    } else if (letter === "BACKSPACE") {
+      onDelete();
+    } else if (
+      validLetterCode(letter) &&
+      letter.length === 1 &&
+      currentWordLength < WORD_LENGTH
+    ) {
+      onChar(letter);
+    }
+  };
 
   const listener = useCallback(
     ({ key }: KeyboardEvent) => {
       const letter = key.toUpperCase();
-      const letterCode = letter.charCodeAt(0);
-      const validLetterCode = letterCode >= 65 && letterCode <= 90;
 
       if (letter === "ENTER" && currentWordLength === WORD_LENGTH) {
         onEnter();
       } else if (letter === "BACKSPACE") {
         onDelete();
       } else if (
-        validLetterCode &&
+        validLetterCode(letter) &&
         letter.length === 1 &&
         currentWordLength < WORD_LENGTH
       ) {
@@ -41,8 +56,40 @@ const Keyboard = ({ currentWordLength, onEnter, onChar, onDelete }: Props) => {
   }, [listener]);
 
   return (
-    <div className="mt-10">
-      <p>Keyboard</p>
+    <div className="keyboard flex flex-col gap-2 items-center mt-10">
+      <div className="flex gap-2">
+        {firstRow.map((char) => {
+          return (
+            <Key key={char} value={char} handleClick={onClick} letter={char} />
+          );
+        })}
+      </div>
+      <div className="flex gap-2">
+        {secondRow.map((char) => {
+          return (
+            <Key key={char} value={char} handleClick={onClick} letter={char} />
+          );
+        })}
+      </div>
+      <div className="flex gap-2">
+        <Key
+          value="ENTER"
+          letter="ENTER"
+          normal={false}
+          handleClick={onClick}
+        />
+        {thirdRow.map((char) => {
+          return (
+            <Key key={char} value={char} handleClick={onClick} letter={char} />
+          );
+        })}
+        <Key
+          normal={false}
+          value="BACKSPACE"
+          handleClick={onClick}
+          letter={<XCircleIcon className="h-6 w-6" />}
+        />
+      </div>
     </div>
   );
 };
