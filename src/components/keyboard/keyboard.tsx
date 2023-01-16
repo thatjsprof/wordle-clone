@@ -1,5 +1,5 @@
 import { keyboardKeys, WORD_LENGTH } from "constants/data";
-import { XCircleIcon } from "@heroicons/react/20/solid";
+import { BackspaceIcon } from "@heroicons/react/20/solid";
 import React, { useEffect, useCallback } from "react";
 import { validLetterCode } from "helper";
 import Key from "./key";
@@ -87,7 +87,7 @@ const Keyboard = ({ currentWordLength, onEnter, onChar, onDelete }: Props) => {
           normal={false}
           value="BACKSPACE"
           handleClick={onClick}
-          letter={<XCircleIcon className="h-6 w-6" />}
+          letter={<BackspaceIcon className="h-6 w-6" />}
         />
       </div>
     </div>
