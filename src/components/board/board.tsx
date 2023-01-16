@@ -4,7 +4,7 @@ import EmptyRow from "components/row/emptyRow";
 import FilledRow from "components/row/filledRow";
 import NormalRow from "components/row/normalRow";
 import Keyboard from "components/keyboard/keyboard";
-import { guessesState, ROW_LENGTH, WORD, WORD_LENGTH } from "constants/data";
+import { guessesState, ROW_LENGTH, WORD_LENGTH } from "constants/data";
 
 const Board = () => {
   const [correctWordHashMap, setCorrectWordHashMap] = useState({});
@@ -64,7 +64,13 @@ const Board = () => {
   };
 
   useEffect(() => {
-    setCorrectWord(WORD);
+    const fetchWord = async () => {
+      const response = await fetch(`${process.env.REACT_APP_WORD_URL}`);
+      const { word } = await response.json();
+      setCorrectWord(word.toUpperCase());
+    };
+
+    fetchWord();
   }, []);
 
   useEffect(() => {

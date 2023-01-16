@@ -5,13 +5,6 @@ export const makeArray = (length: number, callback?: () => string) =>
 
 export const defaultToString = () => "";
 
-export const cellStatuses = {
-  dormant: "DORMANT",
-  correct: "CORRECT",
-  inWord: "INWORD",
-  wrong: "WRONG",
-};
-
 export const createHashMap = (wordArray: string[]) => {
   const hashMap: Record<string, number> = {};
 
