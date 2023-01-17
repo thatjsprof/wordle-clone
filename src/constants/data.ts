@@ -1,4 +1,4 @@
-import { makeArray } from "helper";
+import { makeArray } from "utils/helper";
 import { GuessesType } from "interfaces/board";
 
 export const WORD_LENGTH = 5;
@@ -11,6 +11,7 @@ export const guessesState = makeArray(ROW_LENGTH).reduce((acc, _, index) => {
   return {
     ...acc,
     [index + 1]: {
+      valid: false,
       wordArray: [],
       submitted: false,
     },

@@ -5,15 +5,15 @@ import { CellStatuses } from "interfaces/cell";
 
 interface CellProps {
   value: string;
+  valid?: boolean;
   position?: number;
-  submitted?: boolean;
   status?: CellStatuses;
 }
 
 const Cell = memo(
   ({
     value,
-    submitted,
+    valid,
     position = 0,
     status = CellStatuses.dormant,
   }: CellProps) => {
@@ -29,7 +29,7 @@ const Cell = memo(
             "bg-transparent": status === CellStatuses.dormant,
             "bg-yellow-500": status === CellStatuses.inWord,
             "bg-gray-800": status === CellStatuses.wrong,
-            "cell-fill-animation": value && !submitted,
+            "cell-fill-animation": value && !valid,
           }
         )}
       >

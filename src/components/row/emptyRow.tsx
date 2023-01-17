@@ -1,7 +1,7 @@
 import React from "react";
 import Cell from "components/cell/cell";
 import { WORD_LENGTH } from "constants/data";
-import { defaultToString, makeArray } from "helper";
+import { defaultToString, makeArray } from "utils/helper";
 
 const EmptyRow = () => {
   const emptyArray = makeArray(WORD_LENGTH, defaultToString);

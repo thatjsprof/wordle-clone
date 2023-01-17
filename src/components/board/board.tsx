@@ -1,5 +1,7 @@
-import { createHashMap } from "helper";
+import toaster from "utils/toast";
 import { useState, useEffect } from "react";
+import { createHashMap } from "utils/helper";
+import { WORDS } from "constants/validWords";
 import EmptyRow from "components/row/emptyRow";
 import FilledRow from "components/row/filledRow";
 import NormalRow from "components/row/normalRow";
@@ -19,19 +21,33 @@ const Board = () => {
     const word = currentWordArray.join("");
     const wordGuessed = word.toLowerCase() === correctWord.toLowerCase();
 
-    setGuesses((prevState) => ({
-      ...prevState,
-      [currentIndex]: {
-        ...prevState[currentIndex],
-        submitted: true,
-      },
-    }));
-
     if (wordGuessed) {
       onCompleted();
     } else {
-      if (currentIndex < ROW_LENGTH) {
-        setCurrentIndex((prevCurrentIndex) => prevCurrentIndex + 1);
+      if (WORDS.includes(word.toLowerCase())) {
+        setGuesses((prevState) => ({
+          ...prevState,
+          [currentIndex]: {
+            ...prevState[currentIndex],
+            submitted: true,
+            valid: true,
+          },
+        }));
+
+        if (currentIndex < ROW_LENGTH) {
+          setCurrentIndex((prevCurrentIndex) => prevCurrentIndex + 1);
+        }
+      } else {
+        setGuesses((prevState) => ({
+          ...prevState,
+          [currentIndex]: {
+            ...prevState[currentIndex],
+            submitted: true,
+            valid: false,
+          },
+        }));
+
+        toaster({ message: "Word is not valid", type: "error" });
       }
     }
   };
@@ -81,25 +97,32 @@ const Board = () => {
   return (
     <div className="container flex flex-col py-16 mx-auto">
       <div className="flex text-white flex-col items-center gap-2">
-        {Object.entries(guesses).map(([key, { wordArray, submitted }]) => {
-          if (wordArray.length === 0) {
-            return <EmptyRow key={key} />;
-          } else if (wordArray.length === WORD_LENGTH && submitted) {
+        {Object.entries(guesses).map(
+          ([key, { wordArray, submitted, valid }]) => {
+            if (wordArray.length === 0) {
+              return <EmptyRow key={key} />;
+            } else if (wordArray.length === WORD_LENGTH && submitted && valid) {
+              return (
+                <FilledRow
+                  key={key}
+                  valid={valid}
+                  value={wordArray}
+                  correctWord={correctWord}
+                  correctWordHashMap={correctWordHashMap}
+                />
+              );
+            }
+
             return (
-              <FilledRow
+              <NormalRow
                 key={key}
+                valid={valid}
                 value={wordArray}
                 submitted={submitted}
-                correctWord={correctWord}
-                correctWordHashMap={correctWordHashMap}
               />
             );
           }
-
-          return (
-            <NormalRow key={key} value={wordArray} submitted={submitted} />
-          );
-        })}
+        )}
       </div>
       <div className="flex justify-center">
         <Keyboard

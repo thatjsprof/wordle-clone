@@ -1,17 +1,17 @@
 import React from "react";
 import Cell from "components/cell/cell";
-import { determineCellStatus } from "helper";
+import { determineCellStatus } from "utils/helper";
 
 interface Props {
+  valid: boolean;
   value: string[];
-  submitted: boolean;
   correctWord: string;
   correctWordHashMap: Record<string, number>;
 }
 
 const FilledRow = ({
   value,
-  submitted,
+  valid,
   correctWord,
   correctWordHashMap,
 }: Props) => {
@@ -24,7 +24,7 @@ const FilledRow = ({
           <Cell
             value={val}
             key={index}
-            submitted={submitted}
+            valid={valid}
             status={statuses[index]}
           />
         );

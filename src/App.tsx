@@ -1,4 +1,5 @@
 import Board from "components/board/board";
+import { Toaster } from "react-hot-toast";
 import Nav from "components/nav/nav";
 
 function App() {
@@ -6,6 +7,7 @@ function App() {
     <div className="App">
       <Nav />
       <Board />
+      <Toaster position="top-center" reverseOrder={false} />
     </div>
   );
 }

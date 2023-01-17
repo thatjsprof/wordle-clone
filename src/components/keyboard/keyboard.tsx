@@ -1,7 +1,7 @@
 import { keyboardKeys, WORD_LENGTH } from "constants/data";
 import { BackspaceIcon } from "@heroicons/react/20/solid";
 import React, { useEffect, useCallback } from "react";
-import { validLetterCode } from "helper";
+import { validLetterCode } from "utils/helper";
 import Key from "./key";
 
 interface Props {
