@@ -125,14 +125,7 @@ const Board = () => {
               );
             }
 
-            return (
-              <NormalRow
-                key={key}
-                valid={valid}
-                value={wordArray}
-                submitted={submitted}
-              />
-            );
+            return <NormalRow key={key} valid={valid} value={wordArray} />;
           }
         )}
       </div>
