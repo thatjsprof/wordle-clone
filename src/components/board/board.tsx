@@ -25,14 +25,17 @@ const Board = () => {
     }));
   };
 
-  const onCompleted = () => {
-    passWord();
-    toaster({ message: "Haha you guessed the word :)", type: "success" });
-
+  const reset = () => {
     setTimeout(() => {
       setGuesses(guessesState);
       setCurrentIndex(1);
     }, 1000);
+  };
+
+  const onCompleted = () => {
+    passWord();
+    toaster({ message: "Haha you guessed the word :)", type: "success" });
+    reset();
   };
 
   const onEnter = () => {
@@ -48,6 +51,12 @@ const Board = () => {
 
         if (currentIndex < ROW_LENGTH) {
           setCurrentIndex((prevCurrentIndex) => prevCurrentIndex + 1);
+        } else {
+          toaster({
+            message: "Haha you couldn't guess the word :)",
+            type: "error",
+          });
+          reset();
         }
       } else {
         setGuesses((prevState) => ({
