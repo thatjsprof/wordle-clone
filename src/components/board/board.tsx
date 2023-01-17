@@ -14,7 +14,26 @@ const Board = () => {
   const [currentIndex, setCurrentIndex] = useState(1);
   const [correctWord, setCorrectWord] = useState("");
 
-  const onCompleted = () => {};
+  const passWord = () => {
+    setGuesses((prevState) => ({
+      ...prevState,
+      [currentIndex]: {
+        ...prevState[currentIndex],
+        submitted: true,
+        valid: true,
+      },
+    }));
+  };
+
+  const onCompleted = () => {
+    passWord();
+    toaster({ message: "Haha you guessed the word :)", type: "success" });
+
+    setTimeout(() => {
+      setGuesses(guessesState);
+      setCurrentIndex(1);
+    }, 1000);
+  };
 
   const onEnter = () => {
     const currentWordArray = guesses[currentIndex].wordArray;
@@ -25,14 +44,7 @@ const Board = () => {
       onCompleted();
     } else {
       if (WORDS.includes(word.toLowerCase())) {
-        setGuesses((prevState) => ({
-          ...prevState,
-          [currentIndex]: {
-            ...prevState[currentIndex],
-            submitted: true,
-            valid: true,
-          },
-        }));
+        passWord();
 
         if (currentIndex < ROW_LENGTH) {
           setCurrentIndex((prevCurrentIndex) => prevCurrentIndex + 1);
