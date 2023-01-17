@@ -8,3 +8,30 @@ body {
   font-family: "Helvetica Neue";
   background-color: rgb(55 65 81);
 }
+
+@keyframes cellFillAnimation {
+  0% {
+    border: 2px solid transparent;
+    transform: scale(1, 1);
+  }
+  100% {
+    border: 2px solid #fff;
+    transform: scale(1.05, 1.05);
+  }
+}
+
+// fix this later
+@keyframes cellRevealAnimation {
+  0% {
+    background: transparent;
+  }
+  100% {
+    background: inherit;
+  }
+}
+
+.cell-fill-animation {
+  animation: cellFillAnimation 500ms;
+  animation-fill-mode: both;
+}
+

@@ -89,13 +89,16 @@ const Board = () => {
               <FilledRow
                 key={key}
                 value={wordArray}
+                submitted={submitted}
                 correctWord={correctWord}
                 correctWordHashMap={correctWordHashMap}
               />
             );
           }
 
-          return <NormalRow key={key} value={wordArray} />;
+          return (
+            <NormalRow key={key} value={wordArray} submitted={submitted} />
+          );
         })}
       </div>
       <div className="flex justify-center">

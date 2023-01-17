@@ -3,8 +3,8 @@ import cx from "classnames";
 interface Props {
   value: string;
   normal?: boolean;
-  handleClick: (value: string) => void;
   letter: string | React.ReactNode;
+  handleClick: (value: string) => void;
 }
 
 const Key = ({ letter, normal = true, handleClick, value }: Props) => {

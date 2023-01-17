@@ -3,6 +3,7 @@ import { GuessesType } from "interfaces/board";
 
 export const WORD_LENGTH = 5;
 export const ROW_LENGTH = 6;
+export const REVEAL_TIME = 5;
 
 export const WORD = "FLEES";
 
