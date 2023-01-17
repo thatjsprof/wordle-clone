@@ -70,9 +70,9 @@ const Nav = () => {
 
   return (
     <nav className="border-b flex text-white justify-between p-5 items-center border-gray-500">
-      <div className="menu"></div>
-      <div className="logo">Word Play</div>
-      <div className="options flex gap-3">
+      <div className="menu w-20"></div>
+      <div className="logo w-20">Word Play</div>
+      <div className="options flex justify-end gap-3 w-20">
         <span onClick={() => onClick("howToPlay", true)}>
           <InformationCircleIcon className="h-6 w-6 cursor-pointer" />
         </span>
