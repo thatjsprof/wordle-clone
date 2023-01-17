@@ -21,8 +21,8 @@ const Example = ({
         `flex items-center text-white justify-center  border rounded border-gray-500 w-10 h-10`,
         {
           "bg-emerald-700": status === CellStatuses.correct,
+          "bg-yellow-400": status === CellStatuses.inWord,
           "bg-gray-300": status === CellStatuses.dormant,
-          "bg-yellow-500": status === CellStatuses.inWord,
           "bg-gray-800": status === CellStatuses.wrong,
         }
       )}

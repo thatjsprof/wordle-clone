@@ -27,7 +27,7 @@ const Cell = memo(
           {
             "bg-emerald-700": status === CellStatuses.correct,
             "bg-transparent": status === CellStatuses.dormant,
-            "bg-yellow-500": status === CellStatuses.inWord,
+            "bg-yellow-400": status === CellStatuses.inWord,
             "bg-gray-800": status === CellStatuses.wrong,
             "cell-fill-animation": value && !valid,
           }
