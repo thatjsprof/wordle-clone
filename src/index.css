@@ -20,7 +20,7 @@ body {
   }
 }
 
-// fix this later
+/* fix this later */
 @keyframes cellRevealAnimation {
   0% {
     background: transparent;
@@ -34,4 +34,3 @@ body {
   animation: cellFillAnimation 500ms;
   animation-fill-mode: both;
 }
-
