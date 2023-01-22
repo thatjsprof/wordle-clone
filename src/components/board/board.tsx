@@ -1,18 +1,23 @@
 import toaster from "utils/toast";
 import { useState, useEffect } from "react";
-import { createHashMap } from "utils/helper";
+import { createHashMap, mapKeyColors } from "utils/helper";
 import { WORDS } from "constants/validWords";
 import EmptyRow from "components/row/emptyRow";
+import { GuessesType } from "interfaces/board";
 import FilledRow from "components/row/filledRow";
 import NormalRow from "components/row/normalRow";
 import Keyboard from "components/keyboard/keyboard";
 import { guessesState, ROW_LENGTH, WORD_LENGTH } from "constants/data";
+import { CellStatuses } from "interfaces/cell";
 
 const Board = () => {
-  const [correctWordHashMap, setCorrectWordHashMap] = useState({});
-  const [guesses, setGuesses] = useState(guessesState);
-  const [currentIndex, setCurrentIndex] = useState(1);
-  const [correctWord, setCorrectWord] = useState("");
+  const [keyColors, setKeyColors] = useState<Record<string, CellStatuses>>({});
+  const [correctWordHashMap, setCorrectWordHashMap] = useState<
+    Record<string, number>
+  >({});
+  const [guesses, setGuesses] = useState<GuessesType>(guessesState);
+  const [currentIndex, setCurrentIndex] = useState<number>(1);
+  const [correctWord, setCorrectWord] = useState<string>("");
 
   const passWord = () => {
     setGuesses((prevState) => ({
@@ -101,6 +106,11 @@ const Board = () => {
   };
 
   useEffect(() => {
+    const keyColors = mapKeyColors(guesses, correctWord, correctWordHashMap);
+    setKeyColors(keyColors);
+  }, [guesses, correctWord, correctWordHashMap]);
+
+  useEffect(() => {
     const fetchWord = async () => {
       const response = await fetch(`${process.env.REACT_APP_WORD_URL}`);
       const { word } = await response.json();
@@ -142,7 +152,9 @@ const Board = () => {
         <Keyboard
           onChar={onChar}
           onEnter={onEnter}
+          guesses={guesses}
           onDelete={onDelete}
+          keyColors={keyColors}
           currentWordLength={guesses[currentIndex].wordArray.length}
         />
       </div>

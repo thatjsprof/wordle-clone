@@ -1,3 +1,4 @@
+import { GuessesType } from "interfaces/board";
 import { CellStatuses } from "interfaces/cell";
 
 export const makeArray = (length: number, callback?: () => string) =>
@@ -44,6 +45,45 @@ export const determineCellStatus = (
   });
 
   return statuses;
+};
+
+export const mapKeyColors = (
+  guesses: GuessesType,
+  correctWord: string,
+  correctWordHashMap: Record<string, number>
+) => {
+  const keyObject: Record<string, CellStatuses> = {};
+
+  Object.values(guesses).forEach(({ wordArray, submitted, valid }) => {
+    if (submitted && valid) {
+      const cellStatuses = determineCellStatus(
+        wordArray,
+        correctWord,
+        correctWordHashMap
+      );
+
+      wordArray.forEach(
+        (letter, index) => (keyObject[letter] = cellStatuses[index])
+      );
+    }
+  });
+
+  return keyObject;
+};
+
+export const determineColorClass = (status: CellStatuses) => {
+  switch (status) {
+    case CellStatuses.correct:
+      return "bg-emerald-700";
+    case CellStatuses.dormant:
+      return "bg-transparent";
+    case CellStatuses.inWord:
+      return "bg-yellow-400";
+    case CellStatuses.wrong:
+      return "bg-gray-800";
+    default:
+      return "bg-gray-400";
+  }
 };
 
 export const validLetterCode = (letter: string) => {

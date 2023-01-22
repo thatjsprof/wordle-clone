@@ -131,24 +131,24 @@ const Nav = () => {
             <h3 className="mb-4 font-semibold">Examples</h3>
             <div className="mb-4">
               <div className="flex gap-2 mb-2">
-                {firstWord.map(({ letter, status }) => {
-                  return <Example status={status} value={letter} />;
+                {firstWord.map(({ letter, status }, index) => {
+                  return <Example key={index} status={status} value={letter} />;
                 })}
               </div>
               W is in the word and in the correct spot
             </div>
             <div className="mb-4">
               <div className="flex gap-2 mb-2">
-                {secondWord.map(({ letter, status }) => {
-                  return <Example status={status} value={letter} />;
+                {secondWord.map(({ letter, status }, index) => {
+                  return <Example key={index} status={status} value={letter} />;
                 })}
               </div>
               I is in the word but in the wrong spot
             </div>
             <div className="mb-4">
               <div className="flex gap-2 mb-2">
-                {thirdWord.map(({ letter, status }) => {
-                  return <Example status={status} value={letter} />;
+                {thirdWord.map(({ letter, status }, index) => {
+                  return <Example key={index} status={status} value={letter} />;
                 })}
               </div>
               U is not in the word and in any spot

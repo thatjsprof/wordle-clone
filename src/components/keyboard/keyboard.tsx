@@ -2,16 +2,26 @@ import { keyboardKeys, WORD_LENGTH } from "constants/data";
 import { BackspaceIcon } from "@heroicons/react/20/solid";
 import React, { useEffect, useCallback } from "react";
 import { validLetterCode } from "utils/helper";
+import { CellStatuses } from "interfaces/cell";
+import { GuessesType } from "interfaces/board";
 import Key from "./key";
 
 interface Props {
   onEnter: () => void;
+  guesses: GuessesType;
   onDelete: () => void;
   currentWordLength: number;
   onChar: (letter: string) => void;
+  keyColors: Record<string, CellStatuses>;
 }
 
-const Keyboard = ({ currentWordLength, onEnter, onChar, onDelete }: Props) => {
+const Keyboard = ({
+  onChar,
+  onEnter,
+  onDelete,
+  keyColors,
+  currentWordLength,
+}: Props) => {
   const { firstRow, secondRow, thirdRow } = keyboardKeys;
 
   const onClick = (letter: string) => {
@@ -60,14 +70,26 @@ const Keyboard = ({ currentWordLength, onEnter, onChar, onDelete }: Props) => {
       <div className="flex gap-2">
         {firstRow.map((char) => {
           return (
-            <Key key={char} value={char} handleClick={onClick} letter={char} />
+            <Key
+              key={char}
+              value={char}
+              letter={char}
+              handleClick={onClick}
+              color={keyColors?.[char]}
+            />
           );
         })}
       </div>
       <div className="flex gap-2">
         {secondRow.map((char) => {
           return (
-            <Key key={char} value={char} handleClick={onClick} letter={char} />
+            <Key
+              key={char}
+              value={char}
+              letter={char}
+              handleClick={onClick}
+              color={keyColors?.[char]}
+            />
           );
         })}
       </div>
@@ -80,7 +102,13 @@ const Keyboard = ({ currentWordLength, onEnter, onChar, onDelete }: Props) => {
         />
         {thirdRow.map((char) => {
           return (
-            <Key key={char} value={char} handleClick={onClick} letter={char} />
+            <Key
+              key={char}
+              value={char}
+              letter={char}
+              handleClick={onClick}
+              color={keyColors?.[char]}
+            />
           );
         })}
         <Key
